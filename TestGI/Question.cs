@@ -9,7 +9,7 @@ namespace TestGI
     class Question
     {
         string textQuestion;
-        int rightAnswer;
+        public int rightAnswer;
 
         public Question(string text, int answer) 
         {
