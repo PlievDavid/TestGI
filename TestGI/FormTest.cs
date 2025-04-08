@@ -12,69 +12,47 @@ namespace TestGI
 {
     public partial class FormTest : Form
     {
-        Random rnd = new Random();
 
-        List<Question> listQuestion = new List<Question> { };
-        int indexQuestion = 0;
-        int countRightAnswer = 0;
-        string[] diagnose = { "идиот", "кретин", "дурак", "норма", "талант", "гений" };
-        int[] orderQuestions = {2, 3, 1, 0, 4}; 
-
+        TestGeniusIdiot test;
+        TimerForTest timer;
         public FormTest()
         {
             InitializeComponent();
-            // startTest();
-            listQuestion.Add(new Question("2 + 2 * 2", 6));
-            listQuestion.Add(new Question("Бревно нужно разделить на 10 частей, сколько нужно распилов", 9));
-            listQuestion.Add(new Question("На 2 руках 10 пальцев. Сколько пальцев на 5 руках", 25));
-            listQuestion.Add(new Question("Укол делают каждые пол часа. Сколько минут нужно на 3 укола", 60));
-            listQuestion.Add(new Question("5 свечей горело, 3 погасло. Сколько осталось?", 60));
-            labelQuestion.Text = listQuestion[0].ToString();
+            timer = new TimerForTest(20,50,100);
+            this.Controls.Add(timer);
+            startTest();
+            timer.Start();
         }
-
-        int[] shuffle()
-        {
-            int[] temp = {0, 1, 2, 3, 4};
-            for (int i = 0; i < 10; i++)
-            {
-                int ind1 = rnd.Next(0, 5);
-                int ind2 = rnd.Next(0, 5);
-                int t = temp[ind1];
-                temp[ind1] = temp[ind2];
-                temp[ind2] = t;
-            }
-            return temp;
-        }
-
         void startTest()
         {
-            orderQuestions = shuffle();
-            indexQuestion = 0;
-            countRightAnswer = 0;
-            labelQuestion.Text = listQuestion[orderQuestions[indexQuestion]].ToString();
-            labelNumberOfQuestion.Text = "Вопрос №" + (indexQuestion + 1).ToString();
-            buttonNewStart.Visible = false;
+            test = new TestGeniusIdiot();
+            textBoxQuestion.Text = test.NextQuestion();
+            labelNumberOfQuestion.Text = "Вопрос №" + test.NumberQuestion();
         }
-
         private void buttonNextQuestion_Click(object sender, EventArgs e)
         {
-            if (indexQuestion < listQuestion.Count)
+            try
             {
                 int userAnswer = Convert.ToInt32(textBoxUserAnswer.Text);
-                if (listQuestion[orderQuestions[indexQuestion]].CheckAnswer(userAnswer))
-                    countRightAnswer++;
-                indexQuestion++;
-                if (indexQuestion < listQuestion.Count)
+                test.CheckAnswer(userAnswer);
+                if (test.EndOfTest())
                 {
-                    labelQuestion.Text = listQuestion[orderQuestions[indexQuestion]].ToString();
-                    labelNumberOfQuestion.Text = "Вопрос №" + (indexQuestion + 1).ToString();
+                    MessageBox.Show(test.Diagnose());
+                    buttonNewStart.Visible = true;
+                }
+                else
+                {
+                    textBoxQuestion.Text = test.NextQuestion();
+                    labelNumberOfQuestion.Text = "Вопрос №" + test.NumberQuestion();
+                    timer.Start();
                 }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show(diagnose[countRightAnswer]);
-                buttonNewStart.Visible = true;
+                MessageBox.Show("В ответе может быть только число");
             }
+
+            
 
         }
 
@@ -82,5 +60,7 @@ namespace TestGI
         {
             startTest();
         }
+
+        
     }
 }

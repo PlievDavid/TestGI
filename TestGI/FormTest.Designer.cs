@@ -28,22 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelQuestion = new System.Windows.Forms.Label();
             this.textBoxUserAnswer = new System.Windows.Forms.TextBox();
             this.buttonNextQuestion = new System.Windows.Forms.Button();
             this.buttonNewStart = new System.Windows.Forms.Button();
             this.labelNumberOfQuestion = new System.Windows.Forms.Label();
+            this.textBoxQuestion = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // labelQuestion
-            // 
-            this.labelQuestion.AutoSize = true;
-            this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelQuestion.Location = new System.Drawing.Point(174, 113);
-            this.labelQuestion.Name = "labelQuestion";
-            this.labelQuestion.Size = new System.Drawing.Size(86, 31);
-            this.labelQuestion.TabIndex = 0;
-            this.labelQuestion.Text = "label1";
             // 
             // textBoxUserAnswer
             // 
@@ -80,22 +70,32 @@
             // 
             this.labelNumberOfQuestion.AutoSize = true;
             this.labelNumberOfQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelNumberOfQuestion.Location = new System.Drawing.Point(174, 64);
+            this.labelNumberOfQuestion.Location = new System.Drawing.Point(174, 9);
             this.labelNumberOfQuestion.Name = "labelNumberOfQuestion";
             this.labelNumberOfQuestion.Size = new System.Drawing.Size(86, 31);
             this.labelNumberOfQuestion.TabIndex = 4;
             this.labelNumberOfQuestion.Text = "label1";
+            // 
+            // textBoxQuestion
+            // 
+            this.textBoxQuestion.Enabled = false;
+            this.textBoxQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxQuestion.Location = new System.Drawing.Point(177, 78);
+            this.textBoxQuestion.Multiline = true;
+            this.textBoxQuestion.Name = "textBoxQuestion";
+            this.textBoxQuestion.Size = new System.Drawing.Size(530, 56);
+            this.textBoxQuestion.TabIndex = 5;
             // 
             // FormTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxQuestion);
             this.Controls.Add(this.labelNumberOfQuestion);
             this.Controls.Add(this.buttonNewStart);
             this.Controls.Add(this.buttonNextQuestion);
             this.Controls.Add(this.textBoxUserAnswer);
-            this.Controls.Add(this.labelQuestion);
             this.Name = "FormTest";
             this.Text = "Тест ГЕНИЙ - ИДИОТ";
             this.ResumeLayout(false);
@@ -104,12 +104,11 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label labelQuestion;
         private System.Windows.Forms.TextBox textBoxUserAnswer;
         private System.Windows.Forms.Button buttonNextQuestion;
         private System.Windows.Forms.Button buttonNewStart;
         private System.Windows.Forms.Label labelNumberOfQuestion;
+        private System.Windows.Forms.TextBox textBoxQuestion;
     }
 }
 
