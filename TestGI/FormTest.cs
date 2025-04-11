@@ -15,13 +15,20 @@ namespace TestGI
 
         TestGeniusIdiot test;
         TimerForTest timer;
+        
         public FormTest()
         {
             InitializeComponent();
-            timer = new TimerForTest(20,50,100,this);
+            timer = new TimerForTest(20,50,100);
             this.Controls.Add(timer);
             StartTest();
-            timer.Start();
+
+            timer.Completed += BreakTime;
+        }
+        void BreakTime(object sender,string message)
+        {
+            MessageBox.Show(message);
+            NextQuestion();
         }
         void StartTest()
         {

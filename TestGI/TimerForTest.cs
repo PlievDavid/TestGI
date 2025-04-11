@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 namespace TestGI
 {
@@ -7,9 +8,8 @@ namespace TestGI
         Timer timer;
         int timeTotal;
         int timeCurrent;
-        FormTest f;
-
-        public TimerForTest(int time,int x, int y, FormTest f)
+        public event EventHandler<string> Completed;
+        public TimerForTest(int time,int x, int y)
         {
             this.timeTotal = time;
             this.Text = timeTotal.ToString();
@@ -23,7 +23,6 @@ namespace TestGI
             timer = new Timer();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
-            this.f = f;
         }
 
         private void Timer_Tick(object sender, System.EventArgs e)
@@ -31,8 +30,7 @@ namespace TestGI
             if (timeCurrent == 0)
             {
                 timer.Enabled = false;
-                MessageBox.Show("Время закончилось!");
-                f.NextQuestion();
+                Completed?.Invoke(this, "Время закончилось");
                 return;
             }
             Tick();
