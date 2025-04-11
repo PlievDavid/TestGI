@@ -18,18 +18,17 @@ namespace TestGI
         public FormTest()
         {
             InitializeComponent();
-            timer = new TimerForTest(20,50,100);
+            timer = new TimerForTest(20,50,100,this);
             this.Controls.Add(timer);
-            startTest();
+            StartTest();
             timer.Start();
         }
-        void startTest()
+        void StartTest()
         {
             test = new TestGeniusIdiot();
-            textBoxQuestion.Text = test.NextQuestion();
-            labelNumberOfQuestion.Text = "Вопрос №" + test.NumberQuestion();
+            ShowQuestion();
         }
-        private void buttonNextQuestion_Click(object sender, EventArgs e)
+        public void NextQuestion()
         {
             try
             {
@@ -42,23 +41,27 @@ namespace TestGI
                 }
                 else
                 {
-                    textBoxQuestion.Text = test.NextQuestion();
-                    labelNumberOfQuestion.Text = "Вопрос №" + test.NumberQuestion();
-                    timer.Start();
+                    ShowQuestion();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("В ответе может быть только число");
             }
-
-            
-
         }
-
+        private void buttonNextQuestion_Click(object sender, EventArgs e)
+        {
+            NextQuestion();
+        }
+        void ShowQuestion()
+        {
+            textBoxQuestion.Text = test.NextQuestion();
+            labelNumberOfQuestion.Text = "Вопрос №" + test.NumberQuestion();
+            timer.Start();
+        }
         private void buttonNewStart_Click(object sender, EventArgs e)
         {
-            startTest();
+            StartTest();
         }
 
         

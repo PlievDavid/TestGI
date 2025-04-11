@@ -7,8 +7,9 @@ namespace TestGI
         Timer timer;
         int timeTotal;
         int timeCurrent;
+        FormTest f;
 
-        public TimerForTest(int time,int x, int y)
+        public TimerForTest(int time,int x, int y, FormTest f)
         {
             this.timeTotal = time;
             this.Text = timeTotal.ToString();
@@ -20,10 +21,9 @@ namespace TestGI
             this.Left = x;
             this.TextAlign = ContentAlignment.MiddleCenter;
             timer = new Timer();
-
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
-            
+            this.f = f;
         }
 
         private void Timer_Tick(object sender, System.EventArgs e)
@@ -31,6 +31,8 @@ namespace TestGI
             if (timeCurrent == 0)
             {
                 timer.Enabled = false;
+                MessageBox.Show("Время закончилось!");
+                f.NextQuestion();
                 return;
             }
             Tick();
